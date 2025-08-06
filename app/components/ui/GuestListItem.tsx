@@ -1,9 +1,9 @@
 import { useFetcher } from "@remix-run/react";
 import { type Guest } from "~/generated/prisma/client";
-import { action } from "~/routes/guests";
 import { RefreshCw, X } from "lucide-react";
 import { Button } from "~/components/ui";
-import clsx from "clsx";
+import { clsx } from "clsx";
+import { action } from "~/routes/_index";
 
 export const deleteGuestActionIntent = "delete-guest";
 
