@@ -22,22 +22,24 @@ export default function GuestListItem({ guest }: GuestListItemProps) {
         hasFailedDeletion && "border-destructive",
       )}
     >
-      <fetcher.Form method="POST" className="flex items-center justify-between">
-        <input type="hidden" name="id" value={guest.id} />
+      <div className="flex items-center justify-between">
         <span className="font-medium">
           {guest.firstName} {guest.lastName}
         </span>
-        <Button
-          name="intent"
-          value={deleteGuestActionIntent}
-          type="submit"
-          variant={"destructive"}
-          size={"icon"}
-          aria-label={hasFailedDeletion ? "Retry" : "Delete"}
-        >
-          {hasFailedDeletion ? <RefreshCw /> : <X />}
-        </Button>
-      </fetcher.Form>
+        <fetcher.Form method="POST">
+          <input type="hidden" name="id" value={guest.id} />
+          <Button
+            name="intent"
+            value={deleteGuestActionIntent}
+            type="submit"
+            variant={"destructive"}
+            size={"icon"}
+            aria-label={hasFailedDeletion ? "Retry" : "Delete"}
+          >
+            {hasFailedDeletion ? <RefreshCw /> : <X />}
+          </Button>
+        </fetcher.Form>
+      </div>
     </li>
   );
 }

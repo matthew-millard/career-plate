@@ -1,21 +1,17 @@
-// For demonstration purposes!
-
-import { useFetcher } from "@remix-run/react";
-import { Button } from "~/components/ui";
-
-export default function DeleteCommentButton({ commentId }) {
-  const fetcher = useFetcher();
-  fetcher.state; // "idle" | "submitting" | "loading"
-  fetcher.data; // returned data from our action
-  fetcher.formData;
-  fetcher.formAction;
-  fetcher.formEncType;
-  fetcher.formMethod;
+export default function GuestListItem({ guest }: GuestListItemProps) {
+  const fetcher = useFetcher<typeof action>();
+  const isDeleting = fetcher.state !== "idle";
+  const hasFailedDeletion = fetcher.data?.success === false;
 
   return (
-    <fetcher.Form method="POST">
-      <input type="hidden" name="id" value={commentId} />
-      <Button type="submit">Delete Comment</Button>
-    </fetcher.Form>
+    <li hidden={isDeleting}>
+      <fetcher.Form method="POST">
+        <span>
+          {guest.firstName} {guest.lastName}
+        </span>
+        <input type="hidden" name="id" value={guest.id} />
+        <Button type="submit">Delete Guest</Button>
+      </fetcher.Form>
+    </li>
   );
 }
