@@ -31,7 +31,7 @@ export async function deleteGuest(formData: FormData) {
   const id = String(formData.get("id"));
 
   try {
-    // throw Error("Boom!");
+    // throw Error("something went wrong while deleting");
     await prisma.guest.delete({
       where: {
         id,

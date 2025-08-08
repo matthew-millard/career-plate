@@ -1,12 +1,11 @@
 import { ActionFunctionArgs, MetaFunction } from "@remix-run/node";
-import { useFetcher, useLoaderData } from "@remix-run/react";
-import { useEffect, useRef } from "react";
+import { useLoaderData } from "@remix-run/react";
 import { addGuest, deleteGuest, getAllGuests } from "~/.server/actions";
 import { H2 } from "~/components/typography";
-import { Button, Fieldset, GuestListItem, Input, Label } from "~/components/ui";
-import { deleteGuestActionIntent } from "~/components/ui/GuestListItem";
+import { AddGuestForm, GuestListItem } from "~/components/ui";
 
 export const addGuestActionIntent = "add-guest";
+export const deleteGuestActionIntent = "delete-guest";
 
 export const meta: MetaFunction = () => {
   return [
@@ -17,7 +16,7 @@ export const meta: MetaFunction = () => {
 
 export async function loader() {
   const guests = await getAllGuests();
-  return { guests };
+  return guests;
 }
 
 export async function action({ request }: ActionFunctionArgs) {
@@ -37,67 +36,26 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function Index() {
-  const { guests } = useLoaderData<typeof loader>();
-  const formRef = useRef<HTMLFormElement>(null);
-  const firstNameInputRef = useRef<HTMLInputElement>(null);
-  const addGuest = useFetcher();
-  const isAdding = addGuest.state !== "idle";
-
-  useEffect(() => {
-    formRef.current?.reset();
-    firstNameInputRef.current?.focus();
-  }, [isAdding]);
-
-  const renderGuestList = () => {
-    if (guests.length === 0) {
-      return <p className="italic">There are currently no guests</p>;
-    }
-
-    return (
-      <ul className="space-y-2">
-        {guests.map((guest) => (
-          <GuestListItem key={guest.id} guest={guest} />
-        ))}
-      </ul>
-    );
-  };
+  const guests = useLoaderData<typeof loader>();
 
   return (
     <main className="px-4 py-12 md:py-24">
       <div className="mx-auto grid w-full max-w-2xl gap-12 md:grid-cols-2">
         <section className="space-y-6">
           <H2>Add New Guest</H2>
-          <addGuest.Form method="POST" ref={formRef} className="space-y-6">
-            <Fieldset disabled={isAdding} className="space-y-2">
-              <Label htmlFor="firstName" text="First name" />
-              <Input
-                id="firstName"
-                name="firstName"
-                type="text"
-                ref={firstNameInputRef}
-              />
-              {/* <FieldError errors={null} /> */}
-            </Fieldset>
-            <Fieldset disabled={isAdding} className="space-y-2">
-              <Label htmlFor="lastName" text="Last name" />
-              <Input id="lastName" name="lastName" type="text" />
-            </Fieldset>
-
-            <Button
-              type="submit"
-              name="intent"
-              value={addGuestActionIntent}
-              variant={"default"}
-              size={"lg"}
-              className="w-full"
-            >
-              {isAdding ? "Adding..." : "+ Add Guest"}
-            </Button>
-          </addGuest.Form>
+          <AddGuestForm />
         </section>
         <section className="space-y-6">
           <H2>Guest List</H2>
-          {renderGuestList()}
+          {guests.length === 0 ? (
+            <p className="italic">There are currently no guests</p>
+          ) : (
+            <ul className="space-y-2">
+              {guests.map((guest) => (
+                <GuestListItem key={guest.id} guest={guest} />
+              ))}
+            </ul>
+          )}
         </section>
       </div>
     </main>
