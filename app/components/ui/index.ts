@@ -3,6 +3,7 @@ import Input from "./Input";
 import Label from "./Label";
 import Fieldset from "./Fieldset";
 import GuestListItem from "./GuestListItem";
+import AddGuestForm from "./AddGuestForm";
 // import FieldError from "./FieldError";
 
-export { Button, Input, Label, Fieldset, GuestListItem };
+export { Button, Input, Label, Fieldset, GuestListItem, AddGuestForm };

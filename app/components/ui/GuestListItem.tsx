@@ -3,9 +3,7 @@ import { type Guest } from "~/generated/prisma/client";
 import { RefreshCw, X } from "lucide-react";
 import { Button } from "~/components/ui";
 import { clsx } from "clsx";
-import { action } from "~/routes/_index";
-
-export const deleteGuestActionIntent = "delete-guest";
+import { action, deleteGuestActionIntent } from "~/routes/_index";
 
 interface GuestListItemProps {
   guest: Guest;
