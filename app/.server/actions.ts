@@ -23,7 +23,9 @@ export async function addGuest(formData: FormData) {
 
     return { success: true };
   } catch (error) {
-    return { success: false };
+    if (error instanceof Error) {
+      return { success: false, error };
+    }
   }
 }
 
@@ -31,7 +33,10 @@ export async function deleteGuest(formData: FormData) {
   const id = String(formData.get("id"));
 
   try {
-    // throw Error("something went wrong while deleting");
+    // for demonstration purposes only - has a 50% chance of throwing an error
+    if (Math.random() < 0.5) {
+      throw Error("Something went wrong while deleting");
+    }
     await prisma.guest.delete({
       where: {
         id,
@@ -42,6 +47,10 @@ export async function deleteGuest(formData: FormData) {
       success: true,
     };
   } catch (error) {
-    return { success: false };
+    if (error instanceof Error) {
+      return { success: false, error: { message: error.message } };
+    }
+
+    return { success: false, error: { message: "Unexpected error occurred" } };
   }
 }
