@@ -12,14 +12,15 @@ interface GuestListItemProps {
 export default function GuestListItem({ guest }: GuestListItemProps) {
   const fetcher = useFetcher<typeof action>();
   const isDeleting = fetcher.state !== "idle";
-  const hasFailedDeletion = fetcher.data?.success === false;
+  const hasFailed = fetcher.data?.success === false;
+  const errorMessage = hasFailed ? fetcher.data?.error?.message : null;
 
   return (
     <li
       hidden={isDeleting}
       className={clsx(
         "rounded-md border p-4 shadow-sm",
-        hasFailedDeletion && "border-destructive",
+        hasFailed && "border-destructive",
       )}
     >
       <div className="flex items-center justify-between">
@@ -34,10 +35,11 @@ export default function GuestListItem({ guest }: GuestListItemProps) {
             type="submit"
             variant={"destructive"}
             size={"icon"}
-            aria-label={hasFailedDeletion ? "Retry" : "Delete"}
+            aria-label={hasFailed ? "Retry" : "Delete"}
           >
-            {hasFailedDeletion ? <RefreshCw /> : <X />}
+            {hasFailed ? <RefreshCw /> : <X />}
           </Button>
+          <p>{errorMessage}</p>
         </fetcher.Form>
       </div>
     </li>

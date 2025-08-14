@@ -4,6 +4,17 @@ import Label from "./Label";
 import Fieldset from "./Fieldset";
 import GuestListItem from "./GuestListItem";
 import AddGuestForm from "./AddGuestForm";
+import Header from "./Header";
+import ThemeSwitch from "./ThemeSwitch";
 // import FieldError from "./FieldError";
 
-export { Button, Input, Label, Fieldset, GuestListItem, AddGuestForm };
+export {
+  Button,
+  Input,
+  Label,
+  Fieldset,
+  GuestListItem,
+  AddGuestForm,
+  Header,
+  ThemeSwitch,
+};

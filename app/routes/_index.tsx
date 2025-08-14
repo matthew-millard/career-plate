@@ -39,7 +39,7 @@ export default function Index() {
   const guests = useLoaderData<typeof loader>();
 
   return (
-    <main className="px-4 py-12 md:py-24">
+    <main className="px-4 py-12">
       <div className="mx-auto grid w-full max-w-2xl gap-12 md:grid-cols-2">
         <section className="space-y-6">
           <H2>Add New Guest</H2>
