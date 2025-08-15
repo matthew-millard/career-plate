@@ -1,23 +1,37 @@
-import { useFetcher } from "@remix-run/react";
-import { useEffect, useRef } from "react";
-import { action, addGuestActionIntent } from "~/routes/_index";
+import { Form, useSubmit } from "@remix-run/react";
+import { useRef } from "react";
+import { addGuestActionIntent } from "~/routes/_index";
 import { Fieldset, Label, Input, Button } from "~/components/ui";
 
+export const ADD_GUEST_FETCHER_KEY = "add-guest";
+
 export default function AddGuestForm() {
-  const fetcher = useFetcher<typeof action>({ key: addGuestActionIntent });
   const formRef = useRef<HTMLFormElement>(null);
   const firstNameInputRef = useRef<HTMLInputElement>(null);
-
-  const isAdding = fetcher.state !== "idle";
-
-  useEffect(() => {
-    formRef.current?.reset();
-    firstNameInputRef.current?.focus();
-  }, [isAdding]);
+  const submit = useSubmit();
 
   return (
-    <fetcher.Form method="POST" ref={formRef} className="space-y-6">
-      <Fieldset disabled={isAdding} className="space-y-2">
+    <Form
+      onSubmit={(e) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        formData.set("intent", addGuestActionIntent);
+        formData.set("id", window.crypto.randomUUID());
+
+        submit(formData, {
+          navigate: false,
+          fetcherKey: ADD_GUEST_FETCHER_KEY,
+          method: "POST",
+        });
+
+        formRef.current?.reset();
+        firstNameInputRef.current?.focus();
+      }}
+      method="POST"
+      ref={formRef}
+      className="space-y-6"
+    >
+      <Fieldset className="space-y-2">
         <Label htmlFor="firstName" text="First name" />
         <Input
           id="firstName"
@@ -26,22 +40,14 @@ export default function AddGuestForm() {
           ref={firstNameInputRef}
         />
       </Fieldset>
-      <Fieldset disabled={isAdding} className="space-y-2">
+      <Fieldset className="space-y-2">
         <Label htmlFor="lastName" text="Last name" />
         <Input id="lastName" name="lastName" type="text" />
       </Fieldset>
 
-      <Button
-        type="submit"
-        name="intent"
-        value={addGuestActionIntent}
-        variant={"default"}
-        size={"lg"}
-        className="w-full"
-        disabled={isAdding}
-      >
-        {isAdding ? "Adding..." : "+ Add Guest"}
+      <Button type="submit" variant={"default"} size={"lg"} className="w-full">
+        + Add Guest
       </Button>
-    </fetcher.Form>
+    </Form>
   );
 }

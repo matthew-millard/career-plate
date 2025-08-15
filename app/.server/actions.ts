@@ -10,12 +10,14 @@ export async function getAllGuests() {
 }
 
 export async function addGuest(formData: FormData) {
+  const id = String(formData.get("id"));
   const firstName = String(formData.get("firstName"));
   const lastName = String(formData.get("lastName"));
 
   try {
     await prisma.guest.create({
       data: {
+        id,
         firstName,
         lastName,
       },
@@ -34,9 +36,9 @@ export async function deleteGuest(formData: FormData) {
 
   try {
     // for demonstration purposes only - has a 50% chance of throwing an error
-    if (Math.random() < 0.5) {
-      throw Error("Something went wrong while deleting");
-    }
+    // if (Math.random() < 0.5) {
+    //   throw Error("Something went wrong while deleting");
+    // }
     await prisma.guest.delete({
       where: {
         id,

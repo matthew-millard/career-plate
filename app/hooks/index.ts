@@ -1,3 +1,4 @@
 import useTheme from "./useTheme";
+import useOptimisticGuest from "./useOptimisticGuest";
 
-export { useTheme };
+export { useTheme, useOptimisticGuest };

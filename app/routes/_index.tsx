@@ -1,8 +1,8 @@
 import { ActionFunctionArgs, MetaFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
 import { addGuest, deleteGuest, getAllGuests } from "~/.server/actions";
 import { H2 } from "~/components/typography";
 import { AddGuestForm, GuestListItem } from "~/components/ui";
+import { useOptimisticGuest } from "~/hooks";
 
 export const addGuestActionIntent = "add-guest";
 export const deleteGuestActionIntent = "delete-guest";
@@ -36,7 +36,7 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function Index() {
-  const guests = useLoaderData<typeof loader>();
+  const guests = useOptimisticGuest();
 
   return (
     <main className="px-4 py-12">
@@ -47,11 +47,11 @@ export default function Index() {
         </section>
         <section className="space-y-6">
           <H2>Guest List</H2>
-          {guests.length === 0 ? (
+          {guests?.length === 0 ? (
             <p className="italic">There are currently no guests</p>
           ) : (
             <ul className="space-y-2">
-              {guests.map((guest) => (
+              {guests?.map((guest) => (
                 <GuestListItem key={guest.id} guest={guest} />
               ))}
             </ul>
