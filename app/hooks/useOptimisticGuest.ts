@@ -1,5 +1,4 @@
 import { useFetchers, useRouteLoaderData } from "@remix-run/react";
-import { ADD_GUEST_FETCHER_KEY } from "~/components/ui/AddGuestForm";
 import { Guest } from "~/generated/prisma/client";
 import { loader } from "~/routes/_index";
 
@@ -8,7 +7,7 @@ export default function useOptimisticGuest() {
   const fetchers = useFetchers();
 
   const optimisticEntries = fetchers.reduce<Guest[]>((memo, fetcher) => {
-    if (fetcher.key === ADD_GUEST_FETCHER_KEY && fetcher.formData) {
+    if (fetcher.formData?.get("intent") === "add-guest") {
       const data = Object.fromEntries(fetcher.formData);
 
       if (!entries?.map((entry) => entry.id).includes(String(data.id))) {
