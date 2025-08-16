@@ -1,12 +1,17 @@
 import { ThemeSwitch } from "~/components/ui";
 
-export default function Header() {
+interface HeaderProps {
+  theme: string | undefined;
+}
+
+export default function Header({ theme }: HeaderProps) {
   return (
     <header className="p-4 md:p-8">
       <div className="mx-auto flex max-w-2xl items-center justify-between">
-        <span className="text-3xl font-bold italic tracking-tight text-primary underline underline-offset-2">
-          Guestify
-        </span>
+        <div>
+          <img src={`/logo-${theme}.png`} alt="Remix Logo" width={100} />
+          <span className="pl-1 font-semibold">Optimistic UI Demo</span>
+        </div>
         <ThemeSwitch />
       </div>
     </header>

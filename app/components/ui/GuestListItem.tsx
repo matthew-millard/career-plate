@@ -1,6 +1,6 @@
 import { useFetcher } from "@remix-run/react";
 import { type Guest } from "~/generated/prisma/client";
-import { RefreshCw, X } from "lucide-react";
+import { Trash, TriangleAlert } from "lucide-react";
 import { Button } from "~/components/ui";
 import { clsx } from "clsx";
 import { action, deleteGuestActionIntent } from "~/routes/_index";
@@ -37,9 +37,9 @@ export default function GuestListItem({ guest }: GuestListItemProps) {
             size={"icon"}
             aria-label={hasFailed ? "Retry" : "Delete"}
           >
-            {hasFailed ? <RefreshCw /> : <X />}
+            {hasFailed ? <TriangleAlert /> : <Trash />}
           </Button>
-          <p>{errorMessage}</p>
+          {/* <p>{errorMessage}</p> */}
         </fetcher.Form>
       </div>
     </li>

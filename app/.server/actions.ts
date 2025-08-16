@@ -36,9 +36,9 @@ export async function deleteGuest(formData: FormData) {
 
   try {
     // for demonstration purposes only - has a 50% chance of throwing an error
-    // if (Math.random() < 0.5) {
-    //   throw Error("Something went wrong while deleting");
-    // }
+    if (Math.random() < 0.5) {
+      throw Error("Something went wrong while deleting");
+    }
     await prisma.guest.delete({
       where: {
         id,
