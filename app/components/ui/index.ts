@@ -6,6 +6,7 @@ import GuestListItem from "./GuestListItem";
 import AddGuestForm from "./AddGuestForm";
 import Header from "./Header";
 import ThemeSwitch from "./ThemeSwitch";
+import { ToastProps } from "./Toast";
 // import FieldError from "./FieldError";
 
 export {
@@ -17,4 +18,5 @@ export {
   AddGuestForm,
   Header,
   ThemeSwitch,
+  type ToastProps,
 };

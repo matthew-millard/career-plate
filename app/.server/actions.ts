@@ -1,4 +1,6 @@
 import prisma from "~/lib/prisma";
+import { data } from "@remix-run/node";
+import { setToastCookie, toastSessionStorage } from "./toast";
 
 export async function getAllGuests() {
   const allGuests = await prisma.guest.findMany({
@@ -31,13 +33,27 @@ export async function addGuest(formData: FormData) {
   }
 }
 
-export async function deleteGuest(formData: FormData) {
+export async function deleteGuest(request: Request, formData: FormData) {
   const id = String(formData.get("id"));
 
   try {
     // for demonstration purposes only - has a 50% chance of throwing an error
     if (Math.random() < 0.5) {
-      throw Error("Something went wrong while deleting");
+      const toastSession = await setToastCookie(request, {
+        id,
+        title: "Please try again",
+        description: "Something went wrong while deleting",
+        type: "error",
+      });
+
+      return data(
+        { success: false },
+        {
+          headers: {
+            "Set-Cookie": await toastSessionStorage.commitSession(toastSession),
+          },
+        },
+      );
     }
     await prisma.guest.delete({
       where: {

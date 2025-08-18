@@ -28,7 +28,7 @@ export async function action({ request }: ActionFunctionArgs) {
       return await addGuest(formData);
 
     case deleteGuestActionIntent:
-      return await deleteGuest(formData);
+      return await deleteGuest(request, formData);
 
     default:
       throw new Response(`Invalid intent "${intent}"`, { status: 400 });

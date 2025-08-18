@@ -4,17 +4,22 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
 import { Header } from "~/components/ui";
-import type {
-  ActionFunctionArgs,
-  LinksFunction,
-  LoaderFunctionArgs,
+import {
+  data,
+  type ActionFunctionArgs,
+  type LinksFunction,
+  type LoaderFunctionArgs,
 } from "@remix-run/node";
 
 import "./tailwind.css";
 import { getThemeFromCookie, updateTheme } from "~/.server/theme";
 import { useTheme } from "./hooks";
+import { Toaster } from "sonner";
+import useToast from "./hooks/useToast";
+import { getToast, toastSessionStorage } from "./.server/toast";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -31,7 +36,17 @@ export const links: LinksFunction = () => [
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const theme = getThemeFromCookie(request);
-  return { theme };
+  const { toast, toastCookieSession } = await getToast(request);
+
+  return data(
+    { theme, toast },
+    {
+      headers: {
+        "Set-Cookie":
+          await toastSessionStorage.commitSession(toastCookieSession),
+      },
+    },
+  );
 }
 
 export async function action({ request }: ActionFunctionArgs) {
@@ -40,7 +55,9 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const data = useLoaderData<typeof loader>();
   const theme = useTheme();
+  useToast(data?.toast);
 
   return (
     <html lang="en" className={`${theme} bg-background text-foreground`}>
@@ -53,6 +70,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <Header theme={theme} />
         {children}
+        <Toaster richColors expand />
         <ScrollRestoration />
         <Scripts />
       </body>

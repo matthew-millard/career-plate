@@ -3,7 +3,7 @@ import { data } from "@remix-run/node";
 
 type THEME = "light" | "dark";
 
-const THEME_KEY = "GUESTIFY_prefers-theme";
+const THEME_KEY = "DEMO_prefers-theme";
 
 export function getThemeFromCookie(request: Request) {
   const cookieHeader = request.headers.get("Cookie");
