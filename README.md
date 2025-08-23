@@ -1,40 +1,47 @@
-# Welcome to Remix!
+# ForwardJS Talk - Optimistic UI Demo
 
-- 📖 [Remix docs](https://remix.run/docs)
+## 🚀 Getting Started
 
-## Development
+### Installation
 
-Run the dev server:
+1. **Clone the repository**
 
-```shellscript
-npm run dev
-```
+   ```bash
+   git clone <repository-url>
+   cd forwardjs-talk
+   ```
 
-## Deployment
+2. **Install dependencies**
 
-First, build your app for production:
+   ```bash
+   npm install
+   ```
 
-```sh
-npm run build
-```
+3. **Environment Setup**
+   Create a `.env` file in the root directory:
 
-Then run the app in production mode:
+   ```env
+   DATABASE_URL="your_database_url"
+   ```
 
-```sh
-npm start
-```
+4. **Database Setup**
 
-Now you'll need to pick a host to deploy it to.
+   ```bash
+   # Generate Prisma client
+   npx prisma generate
+   ```
 
-### DIY
+5. **Start Development Server**
+   ```bash
+   npm run dev
+   ```
 
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
+The application will be available at `http://localhost:3000`
 
-Make sure to deploy the output of `npm run build`
+## 📝 Available Scripts
 
-- `build/server`
-- `build/client`
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever css framework you prefer. See the [Vite docs on css](https://vitejs.dev/guide/features.html#css) for more information.
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run typecheck` - Run TypeScript type checking
