@@ -20,6 +20,9 @@ import { useTheme } from "./hooks";
 import { Toaster } from "sonner";
 import useToast from "./hooks/useToast";
 import { getToast, toastSessionStorage } from "./.server/toast";
+import Banner, { hideBannerActionIntent } from "./components/ui/Banner";
+import { updateThemeActionIntent } from "./components/ui/ThemeSwitch";
+import { bannerCookie } from "./.server/banner";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -37,9 +40,10 @@ export const links: LinksFunction = () => [
 export async function loader({ request }: LoaderFunctionArgs) {
   const theme = getThemeFromCookie(request);
   const { toast, toastCookieSession } = await getToast(request);
+  const cookieHeaders = request.headers.get("Cookie");
 
   return data(
-    { theme, toast },
+    { theme, toast, banner: await bannerCookie.parse(cookieHeaders) },
     {
       headers: {
         "Set-Cookie":
@@ -51,7 +55,26 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
-  return updateTheme(formData);
+  const intent = formData.get("intent");
+
+  switch (intent) {
+    case hideBannerActionIntent:
+      return new Response(null, {
+        status: 204,
+        headers: {
+          "Set-Cookie": await bannerCookie.serialize("hidden"),
+        },
+      });
+
+    case updateThemeActionIntent:
+      return updateTheme(formData);
+
+    default:
+      throw new Response("Invalid intent", {
+        status: 400,
+        statusText: "Invalid intent",
+      });
+  }
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -68,6 +91,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        <Banner hidden={data.banner} />
         <Header theme={theme} />
         {children}
         <Toaster richColors expand />
