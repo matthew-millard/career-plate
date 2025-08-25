@@ -4,6 +4,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useFetchers,
   useLoaderData,
 } from "@remix-run/react";
 import { Header } from "~/components/ui";
@@ -22,7 +23,10 @@ import useToast from "./hooks/useToast";
 import { getToast, toastSessionStorage } from "./.server/toast";
 import Banner, { hideBannerActionIntent } from "./components/ui/Banner";
 import { updateThemeActionIntent } from "./components/ui/ThemeSwitch";
-import { bannerCookie } from "./.server/banner";
+import {
+  hasDismissedBanner,
+  setBannerPreferenceInCookie,
+} from "./.server/banner";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -40,10 +44,9 @@ export const links: LinksFunction = () => [
 export async function loader({ request }: LoaderFunctionArgs) {
   const theme = getThemeFromCookie(request);
   const { toast, toastCookieSession } = await getToast(request);
-  const cookieHeaders = request.headers.get("Cookie");
 
   return data(
-    { theme, toast, banner: await bannerCookie.parse(cookieHeaders) },
+    { theme, toast, hasDismissedBanner: hasDismissedBanner(request) },
     {
       headers: {
         "Set-Cookie":
@@ -59,12 +62,14 @@ export async function action({ request }: ActionFunctionArgs) {
 
   switch (intent) {
     case hideBannerActionIntent:
-      return new Response(null, {
-        status: 204,
-        headers: {
-          "Set-Cookie": await bannerCookie.serialize("hidden"),
+      return data(
+        { success: true },
+        {
+          headers: {
+            "Set-Cookie": setBannerPreferenceInCookie(),
+          },
         },
-      });
+      );
 
     case updateThemeActionIntent:
       return updateTheme(formData);
@@ -91,7 +96,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <Banner hidden={data.banner} />
+        <Banner isHidden={data.hasDismissedBanner} />
         <Header theme={theme} />
         {children}
         <Toaster richColors expand />

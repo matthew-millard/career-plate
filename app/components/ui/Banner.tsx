@@ -1,4 +1,4 @@
-import { Form } from "@remix-run/react";
+import { useFetcher } from "@remix-run/react";
 import { clsx } from "clsx";
 import { X } from "lucide-react";
 import { Button } from "~/components/ui";
@@ -6,15 +6,19 @@ import { Button } from "~/components/ui";
 export const hideBannerActionIntent = "hide-banner";
 
 interface BannerProps {
-  hidden: "hidden" | null;
+  isHidden: boolean;
 }
 
-export default function Banner({ hidden }: BannerProps) {
+export default function Banner({ isHidden }: BannerProps) {
+  const fetcher = useFetcher();
+  const hasDismissed = fetcher.state !== "idle";
+
   return (
     <div
       className={clsx(
-        hidden,
-        "relative isolate flex items-center gap-x-6 overflow-hidden border-y bg-card px-6 py-2.5 sm:px-3.5 sm:before:flex-1",
+        isHidden || hasDismissed
+          ? "hidden"
+          : "relative isolate flex items-center gap-x-6 overflow-hidden border-y bg-card px-6 py-2.5 sm:px-3.5 sm:before:flex-1",
       )}
     >
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
@@ -31,7 +35,7 @@ export default function Banner({ hidden }: BannerProps) {
           Get tickets <span aria-hidden="true">&rarr;</span>
         </a>
       </div>
-      <Form method="POST" className="flex flex-1 justify-end">
+      <fetcher.Form method="POST" className="flex flex-1 justify-end">
         <Button
           type="submit"
           variant="ghost"
@@ -43,7 +47,7 @@ export default function Banner({ hidden }: BannerProps) {
           <span className="sr-only">Dismiss</span>
           <X aria-hidden="true" className="size-5 text-foreground" />
         </Button>
-      </Form>
+      </fetcher.Form>
     </div>
   );
 }
