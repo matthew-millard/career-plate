@@ -1,4 +1,4 @@
-# ForwardJS Talk - Optimistic UI Demo
+# Career Plate
 
 ## 🚀 Getting Started
 
@@ -8,7 +8,7 @@
 
    ```bash
    git clone <repository-url>
-   cd forwardjs-talk
+   cd career-plate
    ```
 
 2. **Install dependencies**

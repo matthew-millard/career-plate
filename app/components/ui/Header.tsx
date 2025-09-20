@@ -10,7 +10,7 @@ export default function Header({ theme }: HeaderProps) {
       <div className="mx-auto flex max-w-2xl items-center justify-between">
         <div>
           <img src={`/logo-${theme}.png`} alt="Remix Logo" width={100} />
-          <span className="pl-1 font-semibold">Optimistic UI Demo</span>
+          <span className="pl-1 font-semibold">Career Plate</span>
         </div>
         <ThemeSwitch />
       </div>

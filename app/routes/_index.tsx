@@ -9,8 +9,11 @@ export const deleteGuestActionIntent = "delete-guest";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Optimistic UI - Remix" },
-    { name: "description", content: "Using optimistic ui in Remix!" },
+    { title: "Career Plate" },
+    {
+      name: "description",
+      content: "Career Plate - Your professional networking platform",
+    },
   ];
 };
 

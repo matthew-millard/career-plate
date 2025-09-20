@@ -4,7 +4,6 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useFetchers,
   useLoaderData,
 } from "@remix-run/react";
 import { Header } from "~/components/ui";
