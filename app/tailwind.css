@@ -4,50 +4,61 @@
 
 @layer base {
   :root {
-    /* Theme */
-    --foreground-destructive: 345 82.7% 40.8%;
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --input-invalid: 0 84.2% 60.2%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
+    /* Primary */
+    --turquoise-50: #f0fdfa;
+    --turquoise-100: #cdfaf2;
+    --turquoise-200: #9af5e5;
+    --turquoise-300: #60e8d6;
+    --turquoise-400: #2ccaba;
+    --turquoise-500: #16b6a8;
+    --turquoise-600: #0f928a;
+    --turquoise-700: #10756f;
+    --turquoise-800: #125d5a;
+    --turquoise-900: #144d4a;
+    --turquoise-950: #052e2e;
+
+    /* Secondary */
+    --azure-radiance-50: #eff8ff;
+    --azure-radiance-100: #daefff;
+    --azure-radiance-200: #bde4ff;
+    --azure-radiance-300: #90d5ff;
+    --azure-radiance-400: #5cbcfe;
+    --azure-radiance-500: #369dfb;
+    --azure-radiance-600: #2d86f1;
+    --azure-radiance-700: #1868dd;
+    --azure-radiance-800: #1a54b3;
+    --azure-radiance-900: #1b498d;
+    --azure-radiance-950: #152d56;
+
+    /* Tertiary */
+    --chateau-green-50: #f1fcf4;
+    --chateau-green-100: #dff9e8;
+    --chateau-green-200: #c1f1d2;
+    --chateau-green-300: #90e5b0;
+    --chateau-green-400: #59cf85;
+    --chateau-green-500: #32b563;
+    --chateau-green-600: #27a155;
+    --chateau-green-700: #207541;
+    --chateau-green-800: #1e5d37;
+    --chateau-green-900: #1a4d2e;
+    --chateau-green-950: #092a17;
+
+    --primary: var(--turquoise-600);
+    --secondary: var(--azure-radiance-600);
+    --background: #fafafa;
+    --foreground: #0e0e11;
+    --foreground-muted: #52525b;
+    --foreground-muted-extra: #71717a;
+    --card: #ffffff;
+    --border: #e5e7eb;
   }
 
   .dark {
-    --foreground-destructive: -4 84% 60%;
-    --background: 240 10% 3.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    --background: #0e0e11;
+    --foreground: #f4f4f5;
+    --foreground-muted: #d4d4da;
+    --foreground-muted-extra: #a1a1aa;
+    --card: #18181b;
+    --border: #27272a;
   }
 }

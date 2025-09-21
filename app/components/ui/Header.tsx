@@ -1,19 +1,18 @@
-import { ThemeSwitch } from "~/components/ui";
+import { Button, Logo, ThemeToggle } from "~/components/ui";
 
-interface HeaderProps {
-  theme: string | undefined;
-}
-
-export default function Header({ theme }: HeaderProps) {
+export default function Header() {
   return (
-    <header className="p-4 md:p-8">
-      <div className="mx-auto flex max-w-2xl items-center justify-between">
-        <div>
-          <img src={`/logo-${theme}.png`} alt="Remix Logo" width={100} />
-          <span className="pl-1 font-semibold">Career Plate</span>
+    <div className="border-b">
+      <header className="container flex h-20 max-w-7xl items-center justify-between">
+        <Logo />
+        <div className="flex">
+          <Button variant="link">Sign up</Button>
+          <Button variant="link" className="text-foreground">
+            Log in
+          </Button>
+          <ThemeToggle />
         </div>
-        <ThemeSwitch />
-      </div>
-    </header>
+      </header>
+    </div>
   );
 }

@@ -1,31 +1,22 @@
 import {
+  data,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData,
 } from "@remix-run/react";
-import { Header } from "~/components/ui";
+
 import {
-  data,
-  type ActionFunctionArgs,
+  ActionFunctionArgs,
+  LoaderFunctionArgs,
   type LinksFunction,
-  type LoaderFunctionArgs,
 } from "@remix-run/node";
 
 import "./tailwind.css";
 import { getThemeFromCookie, updateTheme } from "~/.server/theme";
 import { useTheme } from "./hooks";
-import { Toaster } from "sonner";
-import useToast from "./hooks/useToast";
-import { getToast, toastSessionStorage } from "./.server/toast";
-import Banner, { hideBannerActionIntent } from "./components/ui/Banner";
-import { updateThemeActionIntent } from "./components/ui/ThemeSwitch";
-import {
-  hasDismissedBanner,
-  setBannerPreferenceInCookie,
-} from "./.server/banner";
+import { updateThemeActionIntent } from "./components/ui/theme-toggle";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -42,17 +33,9 @@ export const links: LinksFunction = () => [
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const theme = getThemeFromCookie(request);
-  const { toast, toastCookieSession } = await getToast(request);
-
-  return data(
-    { theme, toast, hasDismissedBanner: hasDismissedBanner(request) },
-    {
-      headers: {
-        "Set-Cookie":
-          await toastSessionStorage.commitSession(toastCookieSession),
-      },
-    },
-  );
+  return data({
+    theme,
+  });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
@@ -60,16 +43,6 @@ export async function action({ request }: ActionFunctionArgs) {
   const intent = formData.get("intent");
 
   switch (intent) {
-    case hideBannerActionIntent:
-      return data(
-        { success: true },
-        {
-          headers: {
-            "Set-Cookie": setBannerPreferenceInCookie(),
-          },
-        },
-      );
-
     case updateThemeActionIntent:
       return updateTheme(formData);
 
@@ -82,9 +55,7 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const data = useLoaderData<typeof loader>();
   const theme = useTheme();
-  useToast(data?.toast);
 
   return (
     <html lang="en" className={`${theme} bg-background text-foreground`}>
@@ -95,10 +66,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <Banner isHidden={data.hasDismissedBanner} />
-        <Header theme={theme} />
         {children}
-        <Toaster richColors expand />
+
         <ScrollRestoration />
         <Scripts />
       </body>

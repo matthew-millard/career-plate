@@ -3,6 +3,13 @@ import type { Config } from "tailwindcss";
 export default {
   content: ["./app/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    container: {
+      center: true,
+      padding: "1rem",
+      screens: {
+        "2xl": "1536px",
+      },
+    },
     extend: {
       fontFamily: {
         sans: [
@@ -17,56 +24,26 @@ export default {
         ],
       },
       colors: {
-        border: "hsl(var(--border))",
-        input: {
-          DEFAULT: "hsl(var(--input))",
-          invalid: "hsl(var(--input-invalid))",
-        },
-        ring: {
-          DEFAULT: "hsl(var(--ring))",
-          invalid: "hsl(var(--foreground-destructive))",
-        },
-        background: "hsl(var(--background))",
+        background: "var(--background)",
         foreground: {
-          DEFAULT: "hsl(var(--foreground))",
-          destructive: "hsl(var(--foreground-destructive))",
+          DEFAULT: "var(--foreground)",
+          muted: {
+            DEFAULT: "var(--foreground-muted)",
+            extra: "var(--foreground-muted-extra",
+          },
         },
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "var(--primary)",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+          DEFAULT: "var(--secondary)",
         },
         card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+          DEFAULT: "var(--card)",
         },
       },
       borderColor: {
-        DEFAULT: "hsl(var(--border))",
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        DEFAULT: "var(--border)",
       },
     },
   },

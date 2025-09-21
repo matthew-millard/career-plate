@@ -1,22 +1,8 @@
-import Button from "./Button";
-import Input from "./Input";
-import Label from "./Label";
-import Fieldset from "./Fieldset";
-import GuestListItem from "./GuestListItem";
-import AddGuestForm from "./AddGuestForm";
-import Header from "./Header";
-import ThemeSwitch from "./ThemeSwitch";
-import { ToastProps } from "./Toast";
-// import FieldError from "./FieldError";
+import Header from "./header";
+import Footer from "./footer";
+import Logo from "./logo";
+import ThemeToggle from "./theme-toggle";
+import Button from "./button";
+import BentoGrid from "./bento-card/bento-grid";
 
-export {
-  Button,
-  Input,
-  Label,
-  Fieldset,
-  GuestListItem,
-  AddGuestForm,
-  Header,
-  ThemeSwitch,
-  type ToastProps,
-};
+export { Header, Footer, Logo, ThemeToggle, Button, BentoGrid };
