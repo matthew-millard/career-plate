@@ -22,7 +22,7 @@ export async function action() {
 
 export default function Index() {
   return (
-    <div className="py-10">
+    <div className="py-10 sm:py-20">
       <div className="container max-w-7xl">
         <h2 className="text-primary text-base/7 font-semibold">
           Connect. Grow. Thrive.

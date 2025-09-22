@@ -3,6 +3,6 @@ import Footer from "./footer";
 import Logo from "./logo";
 import ThemeToggle from "./theme-toggle";
 import Button from "./button";
-import BentoGrid from "./bento-card/bento-grid";
+import BentoGrid from "./bento/bento-grid";
 
 export { Header, Footer, Logo, ThemeToggle, Button, BentoGrid };
