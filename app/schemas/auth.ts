@@ -1,35 +1,35 @@
 import { z } from "zod";
 
 const FirstNameSchema = z
-  .string()
+  .string({ error: "First name is required." })
   .trim()
-  .min(1, { message: "First name cannot be empty." })
+  .min(1, { message: "First name is required." })
   .max(30, { message: "First name must be 30 characters or less." });
 
 const LastNameSchema = z
-  .string()
+  .string({ error: "Last name is required." })
   .trim()
-  .min(1, { message: "Last name cannot be empty." })
+  .min(1, { message: "Last name is required." })
   .max(30, { message: "Last name must be 30 characters or less." });
 
 const EmailSchema = z
-  .email({ message: "Email is invalid" })
-  .min(3, { message: "Email is too short" })
-  .max(100, { message: "Email is too long" })
+  .email({ message: "Email is invalid." })
+  .min(3, { message: "Email is too short." })
+  .max(100, { message: "Email is too long." })
   // users can type the email in any case, but we store it in lowercase
   .transform((value) => value.toLowerCase());
 
 const PasswordSchema = z
-  .string()
-  .min(8, { message: "Password must be at least 8 characters long" })
-  .max(124, { message: "Password must be at most 124 characters long" })
+  .string({ error: "Password is required." })
+  .min(8, { message: "Password must be at least 8 characters long." })
+  .max(124, { message: "Password must be at most 124 characters long." })
   .regex(/[A-Z]/, {
-    message: "Password must contain at least one uppercase letter",
+    message: "Password must contain at least one uppercase letter.",
   })
   .regex(/[\W_]/, {
-    message: "Password must contain at least one special character",
+    message: "Password must contain at least one special character.",
   })
-  .regex(/[0-9]/, { message: "Password must contain at least one number" });
+  .regex(/[0-9]/, { message: "Password must contain at least one number." });
 
 const RedirectToSchema = z.string().optional();
 
@@ -39,7 +39,7 @@ export const SignupSchema = z
     lastName: LastNameSchema,
     email: EmailSchema,
     password: PasswordSchema,
-    confirmPassword: z.string(),
+    confirmPassword: z.string({ error: "Passwords don't match" }),
     redirectTo: RedirectToSchema,
   })
   .refine(({ password, confirmPassword }) => password === confirmPassword, {

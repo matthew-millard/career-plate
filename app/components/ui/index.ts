@@ -6,6 +6,7 @@ import Button from "./button";
 import BentoGrid from "./bento-grid";
 import Input from "./input";
 import Label from "./label";
+import { FieldErrors } from "./field-errors";
 import HyperLink from "./hyper-link";
 
 export {
@@ -17,5 +18,6 @@ export {
   BentoGrid,
   Input,
   Label,
+  FieldErrors,
   HyperLink,
 };

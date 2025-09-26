@@ -1,5 +1,5 @@
 import { Form } from "@remix-run/react";
-import { Button, HyperLink, Input, Label } from "~/components/ui";
+import { Button, FieldErrors, HyperLink, Input, Label } from "~/components/ui";
 import { SignupSchema } from "~/schemas";
 import { getFormProps, getInputProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod/v4";
@@ -16,11 +16,12 @@ export default function SignupForm() {
 
   const { firstName, lastName, email, password, confirmPassword, redirectTo } =
     fields;
+
   return (
     <Form
       method="POST"
       {...getFormProps(form)}
-      className="mx-auto flex w-full max-w-md flex-col justify-center space-y-6 px-4 py-12 sm:px-6"
+      className="mx-auto flex w-full max-w-md flex-col justify-center px-4 py-12 sm:px-6"
     >
       <div>
         <h2 className="text-2xl/9 font-bold tracking-tight">
@@ -32,51 +33,53 @@ export default function SignupForm() {
         </p>
       </div>
 
-      <fieldset>
+      <fieldset className="mt-6">
         <Label htmlFor={firstName.id}>First name</Label>
         <Input
           {...getInputProps(firstName, { type: "text" })}
           type="text"
           placeholder="Thomas"
-          className="mt-1"
         />
+        <FieldErrors field={firstName} />
       </fieldset>
 
-      <fieldset>
+      <fieldset className="mt-2">
         <Label htmlFor={lastName.id}>Last name</Label>
         <Input
           {...getInputProps(lastName, { type: "text" })}
           placeholder="Keller"
-          className="mt-1"
         />
+        <FieldErrors field={lastName} />
       </fieldset>
 
-      <fieldset>
+      <fieldset className="mt-2">
         <Label htmlFor={email.id}>Email</Label>
         <Input
           {...getInputProps(email, { type: "email" })}
           placeholder="name@example.com"
-          className="mt-1"
         />
+        <FieldErrors field={email} />
       </fieldset>
-      <fieldset>
+
+      <fieldset className="mt-2">
         <Label htmlFor={password.id}>Password</Label>
         <Input
           {...getInputProps(password, { type: "password" })}
           autoComplete="new-password"
-          className="mt-1"
         />
+        <FieldErrors field={password} />
       </fieldset>
-      <fieldset>
+
+      <fieldset className="mt-2">
         <Label htmlFor={confirmPassword.id}>Confirm password</Label>
         <Input
           {...getInputProps(confirmPassword, { type: "password" })}
           autoComplete="new-password"
-          className="mt-1"
         />
+        <FieldErrors field={confirmPassword} />
       </fieldset>
 
-      <Button type="submit" className="w-full">
+      <Button type="submit" className="mt-3">
         Sign up <HandMetal />
       </Button>
     </Form>
