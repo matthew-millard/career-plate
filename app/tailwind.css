@@ -43,7 +43,9 @@
     --chateau-green-900: #1a4d2e;
     --chateau-green-950: #092a17;
 
-    --primary: var(--turquoise-600);
+    --primary: var(--turquoise-500);
+    --primary-foreground: var(--turquoise-50);
+    --primary-hover: var(--turquoise-600);
     --secondary: var(--azure-radiance-600);
     --background: #fafafa;
     --foreground: #0e0e11;
@@ -51,6 +53,10 @@
     --foreground-muted-extra: #71717a;
     --card: #ffffff;
     --border: #e5e7eb;
+    --placeholder: #71717a;
+    --ring: var(--turquoise-300);
+    --destructive: #ef4444;
+    --destructive-foreground: #fafafa;
   }
 
   .dark {
@@ -60,5 +66,6 @@
     --foreground-muted-extra: #a1a1aa;
     --card: #18181b;
     --border: #27272a;
+    --destructive: #dc2626;
   }
 }

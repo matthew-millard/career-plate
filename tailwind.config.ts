@@ -25,22 +25,30 @@ export default {
       },
       colors: {
         background: "var(--background)",
+
         foreground: {
           DEFAULT: "var(--foreground)",
           muted: {
             DEFAULT: "var(--foreground-muted)",
-            extra: "var(--foreground-muted-extra",
+            extra: "var(--foreground-muted-extra)",
           },
         },
         primary: {
           DEFAULT: "var(--primary)",
+          foreground: "var(--primary-foreground)",
+          hover: "var(--primary-hover)",
         },
         secondary: {
           DEFAULT: "var(--secondary)",
         },
+        destructive: {
+          DEFAULT: "var(--destructive)",
+          foreground: "var(--destructive-foreground)",
+        },
         card: {
           DEFAULT: "var(--card)",
         },
+        placeholder: "var(--placeholder)",
       },
       borderColor: {
         DEFAULT: "var(--border)",
