@@ -33,11 +33,10 @@ const PasswordSchema = z
 
 const RedirectToSchema = z.string().optional();
 
-export const SignupSchema = z
+export const SetupSchema = z
   .object({
     firstName: FirstNameSchema,
     lastName: LastNameSchema,
-    email: EmailSchema,
     password: PasswordSchema,
     confirmPassword: z.string({ error: "Passwords don't match" }),
     redirectTo: RedirectToSchema,
@@ -46,6 +45,10 @@ export const SignupSchema = z
     message: "Passwords don't match",
     path: ["confirmPassword"], // This will attach the error to the passwordConfirm field
   });
+
+export const SignupSchema = z.object({
+  email: EmailSchema,
+});
 
 export const LoginSchema = z.object({
   email: z.email().transform((value) => value.toLowerCase()),

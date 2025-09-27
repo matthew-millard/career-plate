@@ -8,7 +8,7 @@ import Input from "./input";
 import Label from "./label";
 import { FieldErrors } from "./field-errors";
 import HyperLink from "./hyper-link";
-
+import { InputOTPSlot } from "./input-otp";
 export {
   Header,
   Footer,
@@ -20,4 +20,5 @@ export {
   Label,
   FieldErrors,
   HyperLink,
+  InputOTPSlot,
 };
