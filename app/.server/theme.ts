@@ -1,16 +1,17 @@
 import * as cookie from "cookie";
 import { data } from "@remix-run/node";
+import { COOKIE_PREFIX } from "./config";
 
 type THEME = "light" | "dark";
 
-const THEME_KEY = "DEMO_prefers-theme";
+const THEME_KEY = "prefers_theme";
 
 export function getThemeFromCookie(request: Request) {
   const cookieHeader = request.headers.get("Cookie");
 
   if (!cookieHeader) return "light";
 
-  const theme = cookie.parse(cookieHeader)[THEME_KEY];
+  const theme = cookie.parse(cookieHeader)[`${COOKIE_PREFIX}_${THEME_KEY}`];
 
   return theme === "light" || theme === "dark" ? theme : "light"; // default to light
 }
@@ -30,7 +31,7 @@ export function updateTheme(formData: FormData) {
 }
 
 function setThemeCookie(theme: THEME) {
-  const themeCookie = cookie.serialize(THEME_KEY, theme, {
+  const themeCookie = cookie.serialize(`${COOKIE_PREFIX}_${THEME_KEY}`, theme, {
     path: "/",
     sameSite: "lax",
     maxAge: 60 * 60 * 24 * 30, // 30 days
