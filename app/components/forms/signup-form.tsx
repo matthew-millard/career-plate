@@ -33,23 +33,7 @@ export default function SignupForm() {
           verification code to get started.
         </p>
       </div>
-      {/* <fieldset className="mt-6">
-        <Label htmlFor={firstName.id}>First name</Label>
-        <Input
-          {...getInputProps(firstName, { type: "text" })}
-          type="text"
-          placeholder="Thomas"
-        />
-        <FieldErrors field={firstName} />
-      </fieldset> */}
-      {/* <fieldset className="mt-2">
-        <Label htmlFor={lastName.id}>Last name</Label>
-        <Input
-          {...getInputProps(lastName, { type: "text" })}
-          placeholder="Keller"
-        />
-        <FieldErrors field={lastName} />
-      </fieldset> */}
+
       <fieldset className="mt-6">
         <Label htmlFor={email.id}>Email</Label>
         <Input

@@ -47,7 +47,9 @@ export default {
         },
         card: {
           DEFAULT: "var(--card)",
+          hover: "var(--card-hover)",
         },
+
         placeholder: "var(--placeholder)",
       },
       borderColor: {
