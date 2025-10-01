@@ -110,7 +110,7 @@ export default function SetupRoute() {
                 <Combobox>
                   <Label htmlFor={country.id}>Country</Label>
                   <ComboboxContainer>
-                    <ComboboxInput setQuery={setQuery} />
+                    <ComboboxInput query={query} setQuery={setQuery} />
                     <ComboboxButton />
                     <ComboboxOptions>
                       {filteredCountries.map((country) => (
