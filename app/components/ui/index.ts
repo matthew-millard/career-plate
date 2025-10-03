@@ -6,14 +6,7 @@ import Button from "./button";
 import BentoGrid from "./bento-grid";
 import Input from "./input";
 import Label from "./label";
-import Combobox, {
-  ComboboxButton,
-  ComboboxInput,
-  ComboboxContainer,
-  ComboboxOptions,
-  ComboboxOption,
-} from "./combo-box";
-import { FieldErrors } from "./field-errors";
+import { FieldErrors, FormErrors } from "./field-errors";
 import HyperLink from "./hyper-link";
 import { InputOTPSlot } from "./input-otp";
 export {
@@ -24,14 +17,9 @@ export {
   Button,
   BentoGrid,
   Input,
-  Combobox,
-  ComboboxButton,
-  ComboboxInput,
-  ComboboxContainer,
-  ComboboxOptions,
-  ComboboxOption,
   Label,
   FieldErrors,
+  FormErrors,
   HyperLink,
   InputOTPSlot,
 };

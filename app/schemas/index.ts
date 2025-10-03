@@ -1,3 +1,3 @@
-import { SignupSchema, LoginSchema, PersonalInfoSchema } from "./auth";
+import { SignupSchema, LoginSchema, SetupSchema } from "./auth";
 
-export { SignupSchema, LoginSchema, PersonalInfoSchema };
+export { SignupSchema, LoginSchema, SetupSchema };
