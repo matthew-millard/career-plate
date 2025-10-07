@@ -52,7 +52,7 @@
     --foreground-muted: #52525b;
     --foreground-muted-extra: #71717a;
     --card: #ffffff;
-    --card-hover: var(--chateau-green-100);
+    --card-hover: var(--turquoise-100);
     --border: #e5e7eb;
     --placeholder: #71717a;
     --ring: var(--turquoise-300);
@@ -66,7 +66,7 @@
     --foreground-muted: #d4d4da;
     --foreground-muted-extra: #a1a1aa;
     --card: #18181b;
-    --card-hover: var(--turquoise-950);
+    --card-hover: var(--turquoise-900);
     --border: #27272a;
     --destructive: #dc2626;
   }

@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 import { z } from "zod";
 import { validateRequest } from "~/.server/verification";
 import { Button, InputOTPSlot } from "~/components/ui";
+import { maskEmail } from "~/lib/utils";
 
 export const TYPES = ["sign-up"] as const; // add more types of verification here
 const VerficationTypeSchema = z.enum(TYPES);
@@ -67,6 +68,8 @@ export default function VerifyRoute() {
     },
   });
 
+  const maskedEmail = maskEmail(searchParams.get(TARGET_QUERY_PARAM) ?? "");
+
   // Combine all input values into a single string
   const otpValue = Object.values(value).join("");
   return (
@@ -74,7 +77,7 @@ export default function VerifyRoute() {
       <div className="max-w-md rounded-2xl border bg-card p-12">
         <div>
           <h2 className="text-2xl/9 font-bold tracking-tight">
-            Enter the 5 digit code that we sent to you at matt***@***.com
+            {`Enter the 5 digit code that we sent to you at ${maskedEmail}`}
           </h2>
         </div>
         <Form {...getFormProps(form)} method="POST" className="space-y-3">

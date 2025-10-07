@@ -33,17 +33,15 @@ const PasswordSchema = z
 
 const RedirectToSchema = z.string().optional();
 
-export const PersonalInfoSchema = z.object({
-  firstName: FirstNameSchema,
-  lastName: LastNameSchema,
-  email: EmailSchema,
-  country: z.string(),
-});
-
 export const SetupSchema = z
   .object({
+    firstName: FirstNameSchema,
+    lastName: LastNameSchema,
+    email: EmailSchema,
     password: PasswordSchema,
     confirmPassword: z.string({ error: "Passwords don't match" }),
+    country: z.string(),
+    city: z.string(),
     redirectTo: RedirectToSchema,
   })
   .refine(({ password, confirmPassword }) => password === confirmPassword, {
