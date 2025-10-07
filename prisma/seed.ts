@@ -1,4 +1,11 @@
-// import {PrismaClient, Prisma} from '../app/generated/prisma/client'
+import prisma from "~/lib/prisma";
 
-// const prisma = new PrismaClient();
+async function seedDb() {
+  console.log("🌱 Seeding...");
+  console.time("🧹 Cleaned up the database...");
+  await prisma.user.deleteMany({});
+  console.timeEnd("🧹 Cleaned up the database...");
+  console.log("Done.");
+}
 
+seedDb();

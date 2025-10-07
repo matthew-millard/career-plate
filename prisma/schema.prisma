@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
   output   = "../app/generated/prisma"
@@ -14,80 +8,49 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// ---- Enums ----
-enum RoleType {
-  FOH
-  BOH
-  BOTH
-}
-
-enum Availability {
-  FULL_TIME
-  PART_TIME
-  FREELANCE
-  NOT_AVAILABLE
-}
-
-// ---- Auth (private) ----
 model User {
   id         String       @id @default(cuid())
   email      String       @unique
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
-  profile    Profile?
-  password   Password?
-  session    Session[]
   connection Connection[]
+  password   Password?
+  profile    Profile?
+  session    Session[]
 }
 
 model Password {
   hash   String
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @id
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
-// ---- Public directory entry ----
 model Profile {
-  id     String @id @default(cuid())
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  // Basic identity (middleName omitted for MVP)
-  firstName String
-  lastName  String
-  headline  String? // e.g., "Bartender | Cocktail Specialist"
-
-  // Location 
-  city    String?
-  region  String? // province/state
-  country String?
-
-  // Professional info
-  roleType        RoleType @default(FOH)
-  currentPosition String? // "Bar Manager at XYZ"
+  id              String       @id @default(cuid())
+  userId          String       @unique
+  firstName       String
+  lastName        String
+  headline        String?
+  city            String?
+  region          String?
+  country         String?
+  roleType        RoleType     @default(FOH)
+  currentPosition String?
   yearsExperience Int?
-  skills          String[] // ["Mixology","Wine","Espresso"] (use JSON on SQLite)
-  certifications  String[] // ["Smart Serve","WSET 2"]
-  tags            String[] // ["Tiki","Fine Dining","High Volume"]
-
-  // Showcase
+  skills          String[]
+  certifications  String[]
+  tags            String[]
   profileImageUrl String?
   bio             String?
+  availability    Availability @default(NOT_AVAILABLE)
+  isPublic        Boolean      @default(true)
+  phone           String?
+  emailPublic     Boolean      @default(false)
+  phonePublic     Boolean      @default(false)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  // Directory 
-  availability Availability @default(NOT_AVAILABLE)
-  isPublic     Boolean      @default(true)
-
-  // Contact controls (email is on User; optionally mirror here if you want it public)
-  phone       String?
-  emailPublic Boolean @default(false) // if you choose to expose email later
-  phonePublic Boolean @default(false)
-
-  // Meta
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // Helpful indexes for search
   @@index([roleType, availability])
   @@index([city, region, country])
 }
@@ -109,9 +72,8 @@ model Connection {
   providerId   String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId String
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([providerName, providerId])
 }
@@ -119,14 +81,35 @@ model Connection {
 model Verification {
   id        String    @id @default(cuid())
   createdAt DateTime  @default(now())
-  type      String /// The type of verification, e.g. "email" or "phone"
-  target    String /// The thing we're trying to verify, e.g. a user's email or phone number
-  secret    String /// The secret key used to generate the otp
-  algorithm String /// The algorithm used to generate the otp
-  digits    Int /// The number of digits in the otp
-  period    Int /// The number of seconds the otp is valid for
-  charSet   String /// The valid characters for the otp
-  expiresAt DateTime? /// When it's safe to delete this verification
+  /// The type of verification, e.g. "email" or "phone"
+  type      String
+  /// The thing we're trying to verify, e.g. a user's email or phone number
+  target    String
+  /// The secret key used to generate the otp
+  secret    String
+  /// The algorithm used to generate the otp
+  algorithm String
+  /// The number of digits in the otp
+  digits    Int
+  /// The number of seconds the otp is valid for
+  period    Int
+  /// The valid characters for the otp
+  charSet   String
+  /// When it's safe to delete this verification
+  expiresAt DateTime?
 
   @@unique([target, type])
+}
+
+enum RoleType {
+  FOH
+  BOH
+  BOTH
+}
+
+enum Availability {
+  FULL_TIME
+  PART_TIME
+  FREELANCE
+  NOT_AVAILABLE
 }

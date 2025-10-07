@@ -1,8 +1,7 @@
-import { parseWithZod } from "@conform-to/zod/v4";
+import { getZodConstraint, parseWithZod } from "@conform-to/zod/v4";
 import { ActionFunctionArgs, data, redirect } from "@remix-run/node";
 import { z } from "zod";
 import { generateTOTP } from "@epic-web/totp";
-import { SignupForm } from "~/components/forms";
 import prisma from "~/lib/prisma";
 import { SignupSchema } from "~/schemas";
 import { getDomainUrl } from "~/.server/utils";
@@ -13,6 +12,18 @@ import {
 } from "./verify";
 import { sendEmail } from "~/.server/email";
 import VerifyEmail from "~/emails/verify-email";
+import { Form, useActionData } from "@remix-run/react";
+import { getFormProps, getInputProps, useForm } from "@conform-to/react";
+import {
+  Button,
+  FieldErrors,
+  FormErrors,
+  HyperLink,
+  Input,
+  Label,
+} from "~/components/ui";
+import { HandMetal, LoaderCircle } from "lucide-react";
+import { useIsPending } from "~/hooks";
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
@@ -54,7 +65,7 @@ export async function action({ request }: ActionFunctionArgs) {
       digits: 5,
       algorithm: "SHA-256",
       period: 15 * 60, // 15 mins
-      charSet: "abcdefghjklmnpqrstuvwxyz123456789", // Removed I, O, and 0 to help prevent user confusion
+      charSet: "1234567890", // Removed I, O, and 0 to help prevent user confusion
     });
 
   const type = "sign-up";
@@ -99,7 +110,9 @@ export async function action({ request }: ActionFunctionArgs) {
 
   if (emailResponse.init?.status !== 200) {
     return data(
-      { status: "error", message: "An error occured" },
+      submission.reply({
+        formErrors: ["Unknown server error. Please try again later."],
+      }),
       { status: 500 },
     );
   }
@@ -108,9 +121,58 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function SignupRoute() {
+  const isPending = useIsPending();
+  const [form, fields] = useForm({
+    id: "sign-up-form",
+    lastResult: useActionData<typeof action>(),
+    constraint: getZodConstraint(SignupSchema),
+    onValidate({ formData }) {
+      return parseWithZod(formData, { schema: SignupSchema });
+    },
+  });
+
+  const { email } = fields;
   return (
     <div className="grid min-h-dvh lg:grid-cols-2">
-      <SignupForm />
+      <Form
+        method="POST"
+        {...getFormProps(form)}
+        className="mx-auto flex w-full max-w-md flex-col justify-center px-4 py-12 sm:px-6"
+      >
+        <div>
+          <h2 className="text-2xl/9 font-bold tracking-tight">
+            Get started with Career Plate
+          </h2>
+          <p className="mt-1 text-sm/6 text-foreground-muted">
+            Enter your email to begin creating your profile. We&apos;ll send you
+            a verification code to get started.
+          </p>
+        </div>
+
+        <fieldset className="mt-6">
+          <Label htmlFor={email.id}>Email</Label>
+          <Input
+            {...getInputProps(email, { type: "email" })}
+            placeholder="name@example.com"
+          />
+          <FieldErrors field={email} />
+        </fieldset>
+
+        <Button type="submit" className="mt-3">
+          {isPending ? (
+            <LoaderCircle className="animate-spin" />
+          ) : (
+            <span className="flex items-center gap-1">
+              Sign up <HandMetal />
+            </span>
+          )}
+        </Button>
+        <FormErrors errors={form.errors} />
+        <p className="mt-6 text-center text-sm/6 text-foreground-muted">
+          Already have a profile?{" "}
+          <HyperLink to="/login">Log in to your account</HyperLink>
+        </p>
+      </Form>
       <div className="relative hidden lg:block">
         <img
           alt="background"

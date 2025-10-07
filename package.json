@@ -8,6 +8,7 @@
     "dev": "node ./server.js",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "cross-env NODE_ENV=production node ./server.js",
+    "test": "vitest",
     "typecheck": "tsc",
     "email": "email dev"
   },
@@ -72,7 +73,11 @@
     "tsx": "4.20.3",
     "typescript": "^5.1.6",
     "vite": "^6.0.0",
-    "vite-tsconfig-paths": "^4.2.1"
+    "vite-tsconfig-paths": "^4.2.1",
+    "vitest": "^3.2.4"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
   "engines": {
     "node": ">=20.0.0"
