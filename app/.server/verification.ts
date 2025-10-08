@@ -59,9 +59,15 @@ export async function validateRequest(
   });
 
   if (submission.status !== "success") {
-    return data(submission.reply({ hideFields: [CODE_QUERY_PARAM] }), {
-      status: submission.status === "error" ? 400 : 200,
-    });
+    return data(
+      submission.reply({
+        formErrors: ["Error"],
+        hideFields: [CODE_QUERY_PARAM],
+      }),
+      {
+        status: submission.status === "error" ? 400 : 200,
+      },
+    );
   }
 
   const { target, type } = submission.value;
