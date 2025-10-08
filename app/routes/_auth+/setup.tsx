@@ -19,6 +19,8 @@ import { verifySessionStorage } from "~/.server/verification";
 import { TARGET_QUERY_PARAM } from "./verify";
 import { signup } from "~/.server/auth";
 import { getSession, SESSION_KEY } from "~/.server/session";
+import { useIsPending } from "~/hooks";
+import { LoaderCircle } from "lucide-react";
 
 const countries = [
   { key: "argentina", value: "Argentina" },
@@ -92,6 +94,7 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function SetupRoute() {
+  const isPending = useIsPending();
   const [query, setQuery] = useState("");
   const [selectedCountry, setSelectedCountry] = useState<string>("");
   const { email } = useLoaderData<typeof loader>();
@@ -207,7 +210,7 @@ export default function SetupRoute() {
         </Form>
 
         <Button type="submit" form={form.id} className="w-full">
-          Submit
+          {isPending ? <LoaderCircle className="animate-spin" /> : "Submit"}
         </Button>
         <FormErrors errors={form.errors} />
       </div>

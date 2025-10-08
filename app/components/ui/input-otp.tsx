@@ -46,7 +46,7 @@ export const InputOTPSlot = forwardRef<HTMLInputElement, InputOTPSlotProps>(
       <input
         ref={ref}
         type="text"
-        className={`h-12 w-12 rounded-md border bg-transparent text-center font-mono text-base shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--ring)] disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
+        className={`aria-[invalid]:ring-destructive h-12 w-12 rounded-md border bg-transparent text-center font-mono text-base shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--ring)] disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
         maxLength={1}
         value={value}
         onChange={handleChange}
