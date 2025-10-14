@@ -9,6 +9,12 @@ import Label from "./label";
 import { FieldErrors, FormErrors } from "./field-errors";
 import HyperLink from "./hyper-link";
 import { InputOTPSlot } from "./input-otp";
+import Avatar from "./Avatar";
+import SearchInput from "./search-input";
+import MenuButton from "./menu-button";
+import MobileMenu from "./mobile-menu";
+import Backdrop from "./backdrop";
+
 export {
   Header,
   Footer,
@@ -22,4 +28,9 @@ export {
   FormErrors,
   HyperLink,
   InputOTPSlot,
+  Avatar,
+  SearchInput,
+  MenuButton,
+  MobileMenu,
+  Backdrop,
 };
