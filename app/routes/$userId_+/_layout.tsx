@@ -1,7 +1,7 @@
 import { Outlet } from "@remix-run/react";
 import { useState } from "react";
 
-import { Avatar, MenuButton, SearchInput } from "~/components/ui";
+import { Avatar, MenuButton, MobileMenu, SearchInput } from "~/components/ui";
 
 export default function UserDashboardLayout() {
   return (
@@ -17,6 +17,10 @@ function Header() {
 
   return (
     <header className="container flex h-20 max-w-7xl items-center gap-x-4 lg:gap-x-6">
+      <MobileMenu
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
+      />
       <MenuButton
         isMobileMenuOpen={isMobileMenuOpen}
         setIsMobileMenuOpen={setIsMobileMenuOpen}
