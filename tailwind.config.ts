@@ -24,7 +24,10 @@ export default {
         ],
       },
       colors: {
-        background: "var(--background)",
+        background: {
+          DEFAULT: "var(--background)",
+          backdrop: "var(--background-backdrop)",
+        },
 
         foreground: {
           DEFAULT: "var(--foreground)",

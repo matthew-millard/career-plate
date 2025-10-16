@@ -1,36 +1,41 @@
 import { Outlet } from "@remix-run/react";
+import { clsx } from "clsx";
 import { useState } from "react";
+import {
+  AuthenticatedHeader,
+  DesktopSidebar,
+  MobileSidebar,
+} from "~/components/layout";
 
-import { Avatar, MenuButton, MobileMenu, SearchInput } from "~/components/ui";
+export default function Layout() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+  const [expanded, setExpanded] = useState<boolean>(false);
 
-export default function UserDashboardLayout() {
   return (
     <div>
-      <Header />
-      <Outlet />
+      <AuthenticatedHeader
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
+        expanded={expanded}
+      />
+      <MobileSidebar
+        isOpen={isMobileMenuOpen}
+        setIsOpen={setIsMobileMenuOpen}
+      />
+      <DesktopSidebar
+        expanded={expanded}
+        setExpanded={setExpanded}
+        className="hidden lg:block"
+      />
+
+      <main
+        className={clsx(
+          "pt-20 transition-all",
+          expanded ? "lg:pl-64" : "lg:pl-16",
+        )}
+      >
+        <Outlet />
+      </main>
     </div>
-  );
-}
-
-function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
-
-  return (
-    <header className="container flex h-20 max-w-7xl items-center gap-x-4 lg:gap-x-6">
-      <MobileMenu
-        isMobileMenuOpen={isMobileMenuOpen}
-        setIsMobileMenuOpen={setIsMobileMenuOpen}
-      />
-      <MenuButton
-        isMobileMenuOpen={isMobileMenuOpen}
-        setIsMobileMenuOpen={setIsMobileMenuOpen}
-      />
-
-      {/* Separator */}
-      <div aria-hidden="true" className="h-6 w-px bg-gray-700 lg:hidden" />
-
-      <SearchInput placeholder="Search" />
-      <Avatar firstName="Matt" lastName="Millard" profileImageUrl={""} />
-    </header>
   );
 }
