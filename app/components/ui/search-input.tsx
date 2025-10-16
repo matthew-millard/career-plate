@@ -29,7 +29,7 @@ export default function SearchInput({ placeholder }: SearchInputProps) {
         )}
       />
       <input
-        className="col-start-1 row-start-1 size-full border-none bg-transparent pl-8 caret-primary outline-none"
+        className="col-start-1 row-start-1 border-none bg-transparent pl-8 caret-primary outline-none"
         type="search"
         aria-label="search"
         placeholder={isFocused ? "" : placeholder}

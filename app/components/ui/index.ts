@@ -1,4 +1,3 @@
-import Header from "./header";
 import Footer from "./footer";
 import Logo from "./logo";
 import ThemeToggle from "./theme-toggle";
@@ -12,11 +11,9 @@ import { InputOTPSlot } from "./input-otp";
 import Avatar from "./Avatar";
 import SearchInput from "./search-input";
 import MenuButton from "./menu-button";
-import MobileMenu from "./mobile-menu";
 import Backdrop from "./backdrop";
 
 export {
-  Header,
   Footer,
   Logo,
   ThemeToggle,
@@ -31,6 +28,5 @@ export {
   Avatar,
   SearchInput,
   MenuButton,
-  MobileMenu,
   Backdrop,
 };

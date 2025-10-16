@@ -1,10 +1,11 @@
 import { Outlet } from "@remix-run/react";
-import { Footer, Header } from "~/components/ui";
+import { Footer } from "~/components/ui";
+import { PublicHeader } from "~/components/layout";
 
 export default function PublicLayout() {
   return (
     <div>
-      <Header />
+      <PublicHeader />
       <Outlet />
       <Footer />
     </div>

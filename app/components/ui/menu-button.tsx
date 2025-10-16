@@ -1,4 +1,4 @@
-import { MenuIcon, X } from "lucide-react";
+import { MenuIcon } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
 
 interface MenuButtonProps
@@ -22,7 +22,7 @@ export default function MenuButton({
       className={`${className}`}
       {...props}
     >
-      {isMobileMenuOpen ? <X /> : <MenuIcon />}
+      <MenuIcon />
     </button>
   );
 }
