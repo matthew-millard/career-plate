@@ -27,8 +27,8 @@ export default function AuthenticatedHeader({
         setIsMobileMenuOpen={setIsMobileMenuOpen}
       />
       {/* Separator */}
-      <div aria-hidden="true" className="h-6 w-px bg-gray-700 lg:hidden" />
-      <SearchInput placeholder="Search..." />
+      <div aria-hidden="true" className="bg-subtle h-6 w-px lg:hidden" />
+      <SearchInput placeholder="Search hospitality professionals..." />
       <Avatar firstName="Matt" lastName="Millard" profileImageUrl={""} />
     </header>
   );

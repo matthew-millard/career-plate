@@ -8,6 +8,7 @@ import {
 } from "~/components/layout";
 
 export default function Layout() {
+  const userId = "123456"; // Obvs get userId from loader function - cookie
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [expanded, setExpanded] = useState<boolean>(false);
 
@@ -23,6 +24,7 @@ export default function Layout() {
         setIsOpen={setIsMobileMenuOpen}
       />
       <DesktopSidebar
+        userId={userId}
         expanded={expanded}
         setExpanded={setExpanded}
         className="hidden lg:block"

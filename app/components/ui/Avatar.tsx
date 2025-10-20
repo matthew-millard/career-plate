@@ -1,19 +1,22 @@
 import { getUserInitials } from "~/lib/utils";
 
-interface AvatarProps {
+interface AvatarProps extends React.HTMLAttributes<HTMLSpanElement> {
   profileImageUrl: string | null;
   firstName: string;
   lastName: string;
 }
 
 export default function Avatar({
+  className,
   profileImageUrl,
   firstName,
   lastName,
 }: AvatarProps) {
   const usersInitials = getUserInitials(firstName, lastName);
   return (
-    <span className="relative inline-block size-10 overflow-hidden rounded-full border bg-card">
+    <span
+      className={`relative inline-block size-10 overflow-hidden rounded-full border bg-card ${className}`}
+    >
       {profileImageUrl ? (
         <img
           src={profileImageUrl}

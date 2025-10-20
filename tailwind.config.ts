@@ -48,15 +48,15 @@ export default {
           DEFAULT: "var(--destructive)",
           foreground: "var(--destructive-foreground)",
         },
-        card: {
-          DEFAULT: "var(--card)",
-          hover: "var(--card-hover)",
-        },
-
+        card: "var(--card)",
         placeholder: "var(--placeholder)",
+        subtle: "var(--subtle)",
       },
       borderColor: {
         DEFAULT: "var(--border)",
+      },
+      divideColor: {
+        DEFAULT: "var(--divide)",
       },
     },
   },
