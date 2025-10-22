@@ -3,7 +3,7 @@ import { useFetcher } from "@remix-run/react";
 import { Dispatch, RefObject, SetStateAction, useRef, useState } from "react";
 
 interface SearchInputProps {
-  placeholder: string;
+  placeholder?: string;
 }
 
 export default function SearchInput({ placeholder }: SearchInputProps) {
@@ -21,7 +21,7 @@ export default function SearchInput({ placeholder }: SearchInputProps) {
         }
       />
       <input
-        className="col-start-1 row-start-1 border-none bg-transparent pl-8 outline-none"
+        className="col-start-1 row-start-1 border-none bg-transparent pl-8 outline-none placeholder:truncate"
         type="search"
         aria-label="search"
         placeholder={isFocused ? "" : placeholder}

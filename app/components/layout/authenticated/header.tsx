@@ -33,7 +33,8 @@ export default function AuthenticatedHeader({
       />
       {/* Separator */}
       <div aria-hidden="true" className="bg-subtle h-6 w-px lg:hidden" />
-      <SearchInput placeholder="Search hospitality professionals..." />
+      <SearchInput />
+      {/* placeholder="Search hospitality professionals..." */}
       <ViewNotifications />
       <Avatar
         firstName="Matt"
