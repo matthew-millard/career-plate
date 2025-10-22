@@ -53,8 +53,9 @@
     --foreground-muted: #52525b;
     --foreground-muted-extra: #71717a;
     --card: #ffffff;
-    --card-hover: var(--turquoise-100);
     --border: #e5e7eb;
+    --subtle: #e5e7eb;
+    --divide: #e5e7eb;
     --placeholder: #71717a;
     --ring: var(--turquoise-300);
     --destructive: #ef4444;
@@ -67,8 +68,9 @@
     --foreground-muted: #d4d4da;
     --foreground-muted-extra: #a1a1aa;
     --card: #18181b;
-    --card-hover: var(--turquoise-900);
     --border: #27272a;
+    --subtle: #27272a;
+    --divide: #27272a;
     --destructive: #dc2626;
   }
 }
@@ -90,25 +92,4 @@ input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
   display: none;
-}
-
-input::placeholder {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-/* For older browser compatibility */
-input::-moz-placeholder {
-  /* Firefox */
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-input:-ms-input-placeholder {
-  /* Internet Explorer */
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }

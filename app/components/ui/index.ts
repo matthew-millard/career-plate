@@ -12,6 +12,7 @@ import Avatar from "./Avatar";
 import SearchInput from "./search-input";
 import MenuButton from "./menu-button";
 import Backdrop from "./backdrop";
+import ViewNotifications from "./view-notifications";
 
 export {
   Footer,
@@ -29,4 +30,5 @@ export {
   SearchInput,
   MenuButton,
   Backdrop,
+  ViewNotifications,
 };
