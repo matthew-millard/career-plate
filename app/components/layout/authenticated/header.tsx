@@ -1,6 +1,11 @@
 import { Dispatch, SetStateAction } from "react";
 import { clsx } from "clsx";
-import { Avatar, MenuButton, SearchInput } from "~/components/ui";
+import {
+  Avatar,
+  MenuButton,
+  SearchInput,
+  ViewNotifications,
+} from "~/components/ui";
 
 interface AuthenticatedHeaderProps {
   isMobileMenuOpen: boolean;
@@ -29,7 +34,13 @@ export default function AuthenticatedHeader({
       {/* Separator */}
       <div aria-hidden="true" className="bg-subtle h-6 w-px lg:hidden" />
       <SearchInput placeholder="Search hospitality professionals..." />
-      <Avatar firstName="Matt" lastName="Millard" profileImageUrl={""} />
+      <ViewNotifications />
+      <Avatar
+        firstName="Matt"
+        lastName="Millard"
+        profileImageUrl={""}
+        className="lg:hidden"
+      />
     </header>
   );
 }
