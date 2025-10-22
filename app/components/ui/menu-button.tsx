@@ -19,7 +19,7 @@ export default function MenuButton({
       aria-expanded={isMobileMenuOpen}
       aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
       onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-      className={`${className}`}
+      className={`text-foreground-muted hover:text-foreground ${className}`}
       {...props}
     >
       <MenuIcon />

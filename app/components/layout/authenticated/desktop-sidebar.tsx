@@ -22,7 +22,7 @@ interface NavigationItem {
   icon: React.ReactNode;
 }
 
-const navigation: NavigationItem[] = [
+export const navigation: NavigationItem[] = [
   { name: "Dashboard", icon: <LayoutDashboard />, slug: "dashboard" },
   { name: "Profile", icon: <User />, slug: "profile" },
   { name: "Network", icon: <Network />, slug: "network" },

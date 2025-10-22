@@ -20,6 +20,7 @@ export default function Layout() {
         expanded={expanded}
       />
       <MobileSidebar
+        userId={userId}
         isOpen={isMobileMenuOpen}
         setIsOpen={setIsMobileMenuOpen}
       />
