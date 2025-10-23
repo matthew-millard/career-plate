@@ -4,6 +4,7 @@ import {
   Avatar,
   MenuButton,
   SearchInput,
+  ThemeToggle,
   ViewNotifications,
 } from "~/components/ui";
 
@@ -36,6 +37,7 @@ export default function AuthenticatedHeader({
       <SearchInput />
       {/* placeholder="Search hospitality professionals..." */}
       <ViewNotifications />
+      <ThemeToggle className="hidden lg:block" />
       <Avatar
         firstName="Matt"
         lastName="Millard"

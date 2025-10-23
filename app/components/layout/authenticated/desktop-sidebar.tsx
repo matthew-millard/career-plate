@@ -22,7 +22,7 @@ interface NavigationItem {
   icon: React.ReactNode;
 }
 
-const navigation: NavigationItem[] = [
+export const navigation: NavigationItem[] = [
   { name: "Dashboard", icon: <LayoutDashboard />, slug: "dashboard" },
   { name: "Profile", icon: <User />, slug: "profile" },
   { name: "Network", icon: <Network />, slug: "network" },
@@ -60,7 +60,7 @@ export default function DesktopSidebar({
                     "flex w-full gap-x-5 px-5 py-8",
                     isActive
                       ? "font-medium text-secondary"
-                      : "font-normal text-foreground-muted-extra",
+                      : "font-normal text-foreground-muted-extra hover:text-foreground",
                   )
                 }
               >
