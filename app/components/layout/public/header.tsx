@@ -21,26 +21,30 @@ export default function Header() {
               Log in
             </Button>
           </Link>
-          <ThemeToggle />
+          <ThemeToggle className="p-4" />
         </div>
 
         {/* Mobile Menu Button */}
         <Button
-          variant="outline"
+          variant="ghost"
           size="icon"
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="lg:hidden"
         >
           <span className="sr-only">Toggle menu</span>
-          {mobileMenuOpen ? <X /> : <Menu />}
+          {mobileMenuOpen ? (
+            <X className="size-5" />
+          ) : (
+            <Menu className="size-5" />
+          )}
         </Button>
       </header>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="border-t lg:hidden">
-          <div className="container max-w-7xl space-y-2 py-4">
+          <div className="container my-4 max-w-7xl space-y-2">
             <Link
               to="/signup"
               prefetch="intent"
@@ -64,9 +68,7 @@ export default function Header() {
                 Log in
               </Button>
             </Link>
-            <div className="pt-2">
-              <ThemeToggle />
-            </div>
+            <ThemeToggle className="px-4 py-2" />
           </div>
         </div>
       )}

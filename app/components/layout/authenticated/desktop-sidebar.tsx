@@ -60,7 +60,7 @@ export default function DesktopSidebar({
                     "flex w-full gap-x-5 px-5 py-8",
                     isActive
                       ? "font-medium text-secondary"
-                      : "font-normal text-foreground-muted-extra",
+                      : "font-normal text-foreground-muted-extra hover:text-foreground",
                   )
                 }
               >

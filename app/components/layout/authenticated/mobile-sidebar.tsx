@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { clsx } from "clsx";
-import { Backdrop, Button } from "~/components/ui";
+import { Backdrop, Button, ThemeToggle } from "~/components/ui";
 import { NavLink } from "@remix-run/react";
 import { navigation } from "./desktop-sidebar";
 import { X } from "lucide-react";
@@ -39,7 +39,7 @@ export default function MobileSidebar({
             </span>
             <X
               aria-hidden="true"
-              className="size-6 text-foreground-muted-extra"
+              className="size-5 text-foreground-muted-extra"
             />
           </Button>
         </div>
@@ -64,7 +64,9 @@ export default function MobileSidebar({
             </div>
           ))}
         </div>
-        <div className="">Footer</div>
+        <div className="px-5 py-4">
+          <ThemeToggle />
+        </div>
       </aside>
     </>
   );
