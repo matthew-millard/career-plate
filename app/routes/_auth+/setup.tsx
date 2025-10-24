@@ -18,7 +18,7 @@ import {
 import { verifySessionStorage } from "~/.server/verification";
 import { TARGET_QUERY_PARAM } from "./verify";
 import { signup } from "~/.server/auth";
-import { getSession, SESSION_KEY } from "~/.server/session";
+import { getSession, SESSION_KEY, sessionStorage } from "~/.server/session";
 import { useIsPending } from "~/hooks";
 import { LoaderCircle } from "lucide-react";
 
@@ -90,7 +90,11 @@ export async function action({ request }: ActionFunctionArgs) {
   const cookieSession = await getSession(request);
   cookieSession.set(SESSION_KEY, session.id);
 
-  return redirect(`/${session.userId}`);
+  return redirect(`/${session.userId}`, {
+    headers: {
+      "Set-Cookie": await sessionStorage.commitSession(cookieSession),
+    },
+  });
 }
 
 export default function SetupRoute() {
