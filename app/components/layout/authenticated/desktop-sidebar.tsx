@@ -1,4 +1,4 @@
-import { NavLink } from "@remix-run/react";
+import { NavLink, useLoaderData } from "@remix-run/react";
 import { clsx } from "clsx";
 import {
   KeyRound,
@@ -9,9 +9,9 @@ import {
 } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
 import { Avatar } from "~/components/ui";
+import { loader } from "~/routes/$userId_+/_layout";
 
 interface DesktopSidebarProps extends React.HTMLAttributes<HTMLElement> {
-  userId: string;
   expanded: boolean;
   setExpanded: Dispatch<SetStateAction<boolean>>;
 }
@@ -31,12 +31,12 @@ export const navigation: NavigationItem[] = [
 ] as const;
 
 export default function DesktopSidebar({
-  userId,
   expanded,
   setExpanded,
   className,
   ...props
 }: DesktopSidebarProps) {
+  const { user } = useLoaderData<typeof loader>();
   return (
     <aside
       {...props}
@@ -54,7 +54,7 @@ export default function DesktopSidebar({
           {navigation.map((item) => (
             <div key={item.name}>
               <NavLink
-                to={`/${userId}/${item.slug}`}
+                to={`/${user.userId}/${item.slug}`}
                 className={({ isActive }) =>
                   clsx(
                     "flex w-full gap-x-5 px-5 py-8",
@@ -78,18 +78,18 @@ export default function DesktopSidebar({
         >
           <Avatar
             className="flex-shrink-0"
-            firstName="Matthew"
-            lastName="Millard"
-            profileImageUrl=""
+            firstName={user.firstName}
+            lastName={user.lastName}
+            profileImageUrl={user.profileImageUrl}
           />
 
           {expanded && (
             <div className="font-medium">
               <p className="truncate text-sm text-foreground-muted">
-                Matt Millard
+                {user.firstName} {user.lastName}
               </p>
               <p className="truncate text-xs text-foreground-muted-extra">
-                Bar Manager
+                {user.currentPosition}
               </p>
             </div>
           )}
