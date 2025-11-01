@@ -1,22 +1,22 @@
 import { Dispatch, SetStateAction } from "react";
 import { clsx } from "clsx";
 import { Backdrop, Button, ThemeToggle } from "~/components/ui";
-import { NavLink } from "@remix-run/react";
+import { NavLink, useLoaderData } from "@remix-run/react";
 import { navigation } from "./desktop-sidebar";
 import { X } from "lucide-react";
+import { loader } from "~/routes/$userId_+/_layout";
 
 interface MobileSidebarProps extends React.HTMLAttributes<HTMLElement> {
-  userId: string;
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function MobileSidebar({
-  userId,
   isOpen,
   setIsOpen,
   ...props
 }: MobileSidebarProps) {
+  const { user } = useLoaderData<typeof loader>();
   return (
     <>
       <Backdrop isMobileMenuOpen={isOpen} setIsMobileMenuOpen={setIsOpen} />
@@ -47,7 +47,7 @@ export default function MobileSidebar({
           {navigation.map((item) => (
             <div key={item.name}>
               <NavLink
-                to={`/${userId}/${item.slug}`}
+                to={`/${user.userId}/${item.slug}`}
                 onClick={() => setIsOpen(false)}
                 className={({ isActive }) =>
                   clsx(

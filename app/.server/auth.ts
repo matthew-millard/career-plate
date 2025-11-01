@@ -32,6 +32,29 @@ export async function getUserId(request: Request) {
   return session.userId;
 }
 
+export async function requireUserId(
+  request: Request,
+  { redirectTo }: { redirectTo?: string | null } = {},
+) {
+  const userId = await getUserId(request);
+
+  if (!userId) {
+    const { pathname, search } = new URL(request.url);
+
+    redirectTo =
+      redirectTo === null ? null : (redirectTo ?? `${pathname}${search}`);
+
+    const loginParams = redirectTo ? new URLSearchParams({ redirectTo }) : null;
+    const loginRedirect = ["/login", loginParams?.toString()]
+      .filter(Boolean)
+      .join("?");
+
+    throw redirect(loginRedirect);
+  }
+
+  return userId;
+}
+
 export async function requireAnonymous(request: Request) {
   const userId = await getUserId(request);
 

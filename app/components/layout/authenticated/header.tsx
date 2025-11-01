@@ -7,6 +7,8 @@ import {
   ThemeToggle,
   ViewNotifications,
 } from "~/components/ui";
+import { useLoaderData } from "@remix-run/react";
+import { loader } from "~/routes/$userId_+/_layout";
 
 interface AuthenticatedHeaderProps {
   isMobileMenuOpen: boolean;
@@ -19,6 +21,7 @@ export default function AuthenticatedHeader({
   setIsMobileMenuOpen,
   expanded,
 }: AuthenticatedHeaderProps) {
+  const { user } = useLoaderData<typeof loader>();
   return (
     <header
       className={clsx(
@@ -33,15 +36,15 @@ export default function AuthenticatedHeader({
         setIsMobileMenuOpen={setIsMobileMenuOpen}
       />
       {/* Separator */}
-      <div aria-hidden="true" className="bg-subtle h-6 w-px lg:hidden" />
+      <div aria-hidden="true" className="h-6 w-px bg-subtle lg:hidden" />
       <SearchInput />
       {/* placeholder="Search hospitality professionals..." */}
       <ViewNotifications />
       <ThemeToggle className="hidden lg:block" />
       <Avatar
-        firstName="Matt"
-        lastName="Millard"
-        profileImageUrl={""}
+        firstName={user.firstName}
+        lastName={user.lastName}
+        profileImageUrl={user.profileImageUrl}
         className="lg:hidden"
       />
     </header>
